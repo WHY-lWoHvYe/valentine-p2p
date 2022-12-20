@@ -35,6 +35,22 @@ java {
     withJavadocJar()
 }
 
+jar {
+    enabled = true // separates boot jar from normal jar
+    manifest {
+        from sharedManifest
+        attributes(
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version,
+                "Automatic-Module-Name": "lwohvye." + project.name.replace("-", ".")
+        )
+    }
+    into("META-INF/maven/$project.group/$project.name") {
+        from { generatePomFileForMavenPublication }
+        rename ".*", "pom.xml"
+    }
+}
+
 extraJavaModuleInfo {
     automaticModule("bizlog-sdk-${bizlogVersion}.jar", 'com.mzt.logapi')
     automaticModule("easy-captcha-${easyCaptchaVersion}.jar", 'com.wf.captcha')

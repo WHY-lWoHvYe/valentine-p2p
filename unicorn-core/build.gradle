@@ -16,7 +16,7 @@ plugins {
 //}
 
 dependencies {
-    api enforcedPlatform(SpringBootPlugin.BOM_COORDINATES)
+    api platform(SpringBootPlugin.BOM_COORDINATES)
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
     api('org.springframework.boot:spring-boot-starter-web') {
         // 括号里是Groovy的语法，定义map
@@ -61,6 +61,22 @@ java {
     withJavadocJar()
 }
 
+jar {
+    enabled = true // separates boot jar from normal jar
+    manifest {
+        from sharedManifest
+        attributes(
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version,
+                "Automatic-Module-Name": "lwohvye." + project.name.replace("-", ".")
+        )
+    }
+    into("META-INF/maven/$project.group/$project.name") {
+        from { generatePomFileForMavenPublication }
+        rename ".*", "pom.xml"
+    }
+}
+
 // TODO: 2022/9/1 这个无法传递，就很不好
 extraJavaModuleInfo {
     // This does not have to be a complete description (e.g. here 'org.apache.commons.collections' does not export anything here).
@@ -87,10 +103,3 @@ tasks.named('compileJava') {
     options.javaModuleVersion = provider { project.version }
 }
 
-tasks.register('defineManifest', Jar) {
-    manifest = project.manifest {
-        from sharedManifest
-        attributes("Implementation-Title": project.name,
-                "Implementation-Version": archiveVersion)
-    }
-}
