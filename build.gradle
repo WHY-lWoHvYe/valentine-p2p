@@ -3,6 +3,7 @@ import org.gradle.api.java.archives.internal.DefaultManifest
 plugins {
     id 'com.lwohvye.java-conventions'
     id 'org.springframework.boot' // 主要是定义了这个，不晓得在子模块定义为啥会报错
+    id 'signing'
 }
 
 ext.sharedManifest = manifest {
@@ -34,5 +35,80 @@ tasks.withType(Checkstyle).configureEach {
         xml.required = false
         html.required = true
         html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'unicorn'
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'Valentine Unicorn'
+                packaging = 'pom'
+                // optionally artifactId can be defined here
+                description = 'A Spring Boot Project With Jpa JWT Security and so on'
+                url = 'https://github.com/WHY-lWoHvYe/valentine-p2p.git'
+                properties = [
+                        myProp          : "value",
+                        "prop.with.dots": "anotherValue"
+                ]
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'lWoHvYe'
+                        name = '王红岩(lWoHvYe)'
+                        email = 'lWoHvYe@outlook.com'
+                        url = 'https://www.lwohvye.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/WHY-lWoHvYe/valentine-p2p.git'
+                    developerConnection = 'scm:git:ssh://github.com/WHY-lWoHvYe/valentine-p2p.git'
+                    url = 'https://github.com/WHY-lWoHvYe/valentine-p2p/tree/main'
+                    tag = 'unicorn-v3.3.0'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
     }
 }
