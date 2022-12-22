@@ -86,13 +86,10 @@ jobs:
 
       # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
       # If this step fails, then you should remove it and run the build manually (see below)
-      - name: Test printing your secret (Remove this step in production)
-        env:
-          ossrhUsername: ${{ secrets.OssrhUsername }}
-          ossrhPassword: ${{ secrets.OssrhPassword }}
-        run: cat $HOME/secrets/my_secret.json
-
       - name: Autobuild
+        env:
+          ossrhUsername: lWoHvYe
+          ossrhPassword: openWrt
         uses: github/codeql-action/autobuild@v2
 
       # ℹ️ Command-line programs to run using the OS shell.
