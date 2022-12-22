@@ -90,6 +90,7 @@ jobs:
       env:
         ossrhUsername: ${{ secrets.OssrhUsername }}
         ossrhPassword: ${{ secrets.OssrhPassword }}
+      run: cat $HOME/secrets/my_secret.json
       uses: github/codeql-action/autobuild@v2
 
     # ℹ️ Command-line programs to run using the OS shell.
