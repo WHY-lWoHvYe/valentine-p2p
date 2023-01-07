@@ -23,6 +23,7 @@ include(':unicorn-logging')
 include(':unicorn-tp-tools')
 include(':unicorn-sys-api')
 include(':unicorn-security')
+include(':valentine-starter')
 
 gradleEnterprise {
     def runsOnCI = providers.environmentVariable("CI").getOrElse("false").toBoolean()
