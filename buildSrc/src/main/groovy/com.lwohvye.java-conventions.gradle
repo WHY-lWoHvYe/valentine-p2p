@@ -24,6 +24,9 @@ group = 'com.lwohvye'
 version = '4.0.0-SNAPSHOT'
 java.sourceCompatibility = JavaVersion.VERSION_19
 
+ossrhUsername = System.getenv('OSSRH_USERNAME') ?: ossrhUsername ?: ''
+ossrhPassword = System.getenv('OSSRH_PASSWORD') ?: ossrhPassword ?: ''
+
 java {
     withSourcesJar()
 }
