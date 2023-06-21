@@ -31,9 +31,6 @@ jobs:
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.4.2
-#        env:
-#          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-#          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         with:
           arguments: bootBuildImage
 
@@ -41,12 +38,6 @@ jobs:
         uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: publishToMavenLocal
-
-      - name: Build OAuth2.0 Module
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
-          build-root-directory: unicorn-oauth2
 
       - name: Build Unicorn-Starter
         run: mvn -B package --file unicorn-starter/pom.xml -P jigsaw
