@@ -38,6 +38,7 @@
         <javassist.version>3.29.2-GA</javassist.version>
         <shardingsphere.version>5.2.0</shardingsphere.version>
         <kotlin.version>1.9.0-RC</kotlin.version>
+        <coroutines.version>1.7.0</coroutines.version>
     </properties>
 
     <dependencies>
@@ -97,11 +98,11 @@
         <!--Mockito's inline mock maker supports static mocks based on the Instrumentation API.
         You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
         Note that Mockito's inline mock maker is not supported on Android.-->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
         <!--   kotlin is optional     -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -115,14 +116,17 @@
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-core</artifactId>
+            <version>${coroutines.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-jdk8</artifactId>
+            <version>${coroutines.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-jdk9</artifactId>
+            <version>${coroutines.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
