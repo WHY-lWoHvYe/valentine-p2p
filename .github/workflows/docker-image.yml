@@ -39,5 +39,8 @@ jobs:
         with:
           arguments: publishToMavenLocal
 
+      - name: Remove module-info
+        run: rm -rf unicorn-starter/src/main/java/module-info.java
+
       - name: Build Unicorn-Starter
         run: mvn -B package --file unicorn-starter/pom.xml -P jigsaw
