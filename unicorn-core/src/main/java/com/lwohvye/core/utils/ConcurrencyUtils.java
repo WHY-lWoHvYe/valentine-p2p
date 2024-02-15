@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2022-2023.  lWoHvYe(Hongyan Wang)
+ *    Copyright (c) 2022-2024.  lWoHvYe(Hongyan Wang)
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import java.util.function.Supplier;
 @UtilityClass
 public class ConcurrencyUtils extends UnicornAbstractThreadUtils {
 
+    public static final ThreadLocal<Object> threadLocal = new ThreadLocal<>();
 
     /**
      * Basic flow : execute tasks, the result as the input of composeResult, the previous res as the input of eventual
@@ -78,6 +79,55 @@ public class ConcurrencyUtils extends UnicornAbstractThreadUtils {
         // Here, both forks have succeeded, so compose their results
         if (Objects.nonNull(eventual))
             log.warn("Unsupported Java below 21 Skip EventualTask");
+    }
+
+    /*
+        var i = c.incrementAndGet();
+        ConcurrencyUtils.threadLocal.set(String.valueOf(i));
+        threadPoolExecutor.execute(ConcurrencyUtils.withThreadLocalAndThreadPool(() -> {
+            var s = ConcurrencyUtils.threadLocal.get();
+            log.info((String) s);
+        }));
+        threadLocal.remove();
+     */
+
+    /*
+        var voidCompletableFuture = CompletableFuture.runAsync(ConcurrencyUtils.withThreadLocalAndThreadPool(() -> {
+            var s = ConcurrencyUtils.threadLocal.get();
+            log.info((String) s);
+        }));
+        var unused = voidCompletableFuture.get();
+
+        var stringCompletableFuture = CompletableFuture.supplyAsync(ConcurrencyUtils.withThreadLocalAndThreadPool(() -> {
+            var s = ConcurrencyUtils.threadLocal.get();
+            log.info((String) s);
+            return String.valueOf(s);
+        }));
+        var s = stringCompletableFuture.get();
+     */
+
+    public static Runnable withThreadLocalAndThreadPool(Runnable runnable) {
+        var sharedVar = ConcurrencyUtils.threadLocal.get(); // 在parent thread中执行
+        return () -> { // sharedVar的传递还不清楚，但已知因为是非基本类型，所以传递的引用
+            ConcurrencyUtils.threadLocal.set(sharedVar); // 在sub thread中执行
+            runnable.run(); // runnable在调用 run()的线程执行，当前是 sub thread。
+        };
+    }
+
+    public static <U> Supplier<U> withThreadLocalAndThreadPool(Supplier<U> supplier) {
+        var sharedVar = ConcurrencyUtils.threadLocal.get();
+        return () -> {
+            ConcurrencyUtils.threadLocal.set(sharedVar);
+            return supplier.get();
+        };
+    }
+
+    public static <V> Callable<V> withThreadLocalAndThreadPool(Callable<V> callable) {
+        var sharedVar = ConcurrencyUtils.threadLocal.get();
+        return () -> {
+            ConcurrencyUtils.threadLocal.set(sharedVar);
+            return callable.call();
+        };
     }
 
     public static Runnable withMdc(Runnable runnable) {

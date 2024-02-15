@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2023.  lWoHvYe(Hongyan Wang)
+ *    Copyright (c) 2023-2024.  lWoHvYe(Hongyan Wang)
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -33,10 +33,10 @@ plugins {
     // This plugin simplifies the use of Lombok in Gradle
     id("io.freefair.lombok") version "8.4"
     id("me.champeau.mrjar") version "0.1.1"
-    id("org.gradlex.extra-java-module-info") version "1.6"
+    id("org.gradlex.extra-java-module-info") version "1.8"
     // 在parent root执行Task，会同步执行sub project的Task，比如执行了bootJar，那会执行subPro的bootJar(若其中没有该Task会ignore)
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
-    id("org.graalvm.buildtools.native") version "0.9.28" apply false
+    id("org.graalvm.buildtools.native") version "0.10.0" apply false
 }
 
 extra["sharedManifest"] = java.manifest {

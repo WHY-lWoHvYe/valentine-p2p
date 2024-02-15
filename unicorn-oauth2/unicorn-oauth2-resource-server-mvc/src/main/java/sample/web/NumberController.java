@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2023.  lWoHvYe(Hongyan Wang)
+ *    Copyright (c) 2023-2024.  lWoHvYe(Hongyan Wang)
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class NumberController {
     @Autowired
     CustomizeUserRepository customizeUserRepository;
 
-    // http://127.0.0.1:8080/res/concatNumbers
+    // http://127.0.0.1:8080/res/res-mvc/concatNumbers
     @GetMapping(value = "/api/concatNumbers", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> generateConcatNumbers() {
         // 创建包含初始字符串 "starting" 的 Flux
