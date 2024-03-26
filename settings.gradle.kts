@@ -25,6 +25,7 @@ pluginManagement {
 
 plugins {
     id("com.gradle.enterprise") version "3.15"
+    id("org.gradle.toolchains.foojay-resolver-convention") version ("0.8.0")
 }
 
 dependencyResolutionManagement {
@@ -48,17 +49,16 @@ dependencyResolutionManagement {
             version("ip2region", "3.0.4")
             version("jjwt", "0.12.5")
             version("kotlin", providers.gradleProperty("kotlinVersion").get())
-            version("kotlinxCoroutines", "1.8.0-RC2")
-            version("log4jdbc", "1.18")
+            version("kotlinxCoroutines", "1.8.0")
             version("logstash", "7.4")
             version("mapstruct", "1.5.5.Final")
-            version("mapstructSpring", "1.1.0")
+            version("mapstructSpring", "1.1.1")
             version("oshiCore", "6.4.2")
             version("poi", "5.2.4")
             version("quartz", "2.3.2")
-            version("redisson", "3.26.0")
+            version("redisson", "3.27.2")
             version("springBoot", providers.gradleProperty("springBootVersion").get())
-            version("springdoc", "2.3.0")
+            version("springdoc", "2.4.0")
             version("thumbnailator", "0.4.20")
             version("xerces", "2.12.2")
 
@@ -84,7 +84,6 @@ dependencyResolutionManagement {
             library("hutool", "cn.hutool", "hutool-all").versionRef("hutool")
             library("ip2region", "net.dreamlu", "mica-ip2region").versionRef("ip2region")
             library("jjwt", "io.jsonwebtoken", "jjwt").versionRef("jjwt")
-            library("log4jdbc", "com.lwohvye.log4jdbc-log4j2", "log4jdbc-log4j2-jdbc4.1").versionRef("log4jdbc")
             library("logback-encoder", "net.logstash.logback", "logstash-logback-encoder").versionRef("logstash")
             library("mapstruct", "org.mapstruct", "mapstruct").versionRef("mapstruct")
             library("mapstruct-processor", "org.mapstruct", "mapstruct-processor").versionRef("mapstruct")

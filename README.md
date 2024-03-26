@@ -10,11 +10,12 @@
 [![Dependency Review](https://github.com/lWoHvYe/unicorn/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/lWoHvYe/unicorn/actions/workflows/dependency-review.yml)
 [![CodeQL](https://github.com/lWoHvYe/unicorn/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/lWoHvYe/unicorn/actions/workflows/codeql-analysis.yml)
 [![Gradle Package](https://github.com/lWoHvYe/unicorn/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/lWoHvYe/unicorn/actions/workflows/gradle-publish.yml)
+[![Qodana](https://github.com/lWoHvYe/unicorn/actions/workflows/qodana_code_quality.yml/badge.svg?branch=main)](https://github.com/lWoHvYe/unicorn/actions/workflows/qodana_code_quality.yml)
 </div>
 
 本项目在eladmin项目的基础上，进行了部分扩展及尝试，在此表示感谢。
 
-For lWoHvYe/unicorn project, will stay at Java 21 until 2025. will try Java 21+ in WHY-lWoHvYe/valentine-p2p
+For lWoHvYe/unicorn project, will stay at Java 21 until 2025. will try Java 21+ in WHY-lWoHvYe/valentine-p2p (skip Java 22)
 
 ---
 
@@ -42,7 +43,7 @@ For lWoHvYe/unicorn project, will stay at Java 21 until 2025. will try Java 21+ 
 
 <project>
 
-    <project.core.version>4.2.0-pi</project.core.version>
+    <project.core.version>4.3.0-rho</project.core.version>
 
     <!--    system模块    -->
     <dependency>
@@ -65,7 +66,7 @@ For lWoHvYe/unicorn project, will stay at Java 21 until 2025. will try Java 21+ 
 ```groovy
 // 4.x系列将基于Java 21, 部分module使用Kotlin, 使用Gradle build
 ext { // 这个定义是可以传递的
-    unicornVersion = '4.2.0-pi'
+    unicornVersion = '4.3.0-rho'
 }
 
 implementation "com.lwohvye:unicorn-security:$unicornVersion"

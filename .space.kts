@@ -5,20 +5,13 @@
  */
 
 job("Assemble & BuildImage") {
-    container(displayName = "Run gradle build", image = "eclipse-temurin:21-alpine") {
+
+    container(displayName = "Run gradle build", image = "eclipse-temurin:21-jdk") {
 
         kotlinScript { api ->
             // here can be your complex logic
             api.gradlew("assemble")
             api.gradlew("bootBuildImage")
-        }
-    }
-
-    container(displayName = "Run gradle build", image = "amazoncorretto:21-alpine") {
-
-        kotlinScript { api ->
-            // here can be your complex logic
-            api.gradlew("classes")
         }
     }
 }
