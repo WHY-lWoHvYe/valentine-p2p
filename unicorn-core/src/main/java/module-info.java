@@ -21,6 +21,7 @@ module lwohvye.unicorn.core {
     requires transitive spring.data.commons;
     requires transitive spring.data.jpa;
     requires transitive spring.data.redis;
+    requires transitive spring.rabbit;
     requires transitive spring.security.config;
     requires transitive spring.security.core;
     requires transitive spring.security.crypto;
@@ -59,6 +60,7 @@ module lwohvye.unicorn.core {
     exports com.lwohvye.core.base;
     exports com.lwohvye.core.constant;
     exports com.lwohvye.core.context;
+    exports com.lwohvye.core.custom;
     exports com.lwohvye.core.exception;
     exports com.lwohvye.core.extension;
     exports com.lwohvye.core.utils;
